@@ -9,14 +9,20 @@ import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan(basePackages = "org.example")
 @PropertySource("classpath:application.properties")
+@EnableWebMvc
 
-public class SpringConfig {
+public class SpringConfig implements WebMvcConfigurer {
     @Autowired
     private Environment environment;
 
@@ -44,5 +50,22 @@ public class SpringConfig {
     @Bean(initMethod = "init")
     public CatRepository repository(){
         return new CatRepository();
+    }
+
+    @Bean
+    public FreeMarkerConfigurer freeMarkerConfigurer(){
+        FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
+        freeMarkerConfigurer.setTemplateLoaderPath("templates");
+        return freeMarkerConfigurer;
+    }
+
+    @Bean
+    public ViewResolver viewResolver(){
+        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+        resolver.setCache(true);
+        resolver.setPrefix("");
+        resolver.setSuffix(".ftl");
+        resolver.setContentType("text/html; charset=UTF-8");
+        return resolver;
     }
 }

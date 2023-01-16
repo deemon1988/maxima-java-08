@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CatRepository {
 
     @Autowired
@@ -26,4 +27,10 @@ public class CatRepository {
     public List<Cat> findAll() {
         return new ArrayList<>(jdbcTemplate.query("SELECT * FROM cats", rowMapper));
     }
+
+    public void create(Cat cat){
+      jdbcTemplate.update("INSERT INTO cats (id, name) VALUES (?,?)",
+              cat.getId(), cat.getName()
+      );
+}
 }
