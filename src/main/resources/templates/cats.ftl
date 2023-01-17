@@ -21,11 +21,18 @@
 
 <form method="post" action="cat">
     <h1>Add cat</h1>
-    <input name="id" placeholder="Cat id ...">
+    <p><input name="id" placeholder="Cat id ..."></p>
 
-    <label><input type="radio" name="name" value="Murzik"/>Мурзик</label>
-    <label><input type="radio" name="name" value="Barsik"/>Барсик</label>
-    <label><input type="radio" name="name" value="Murka"/>Мурка</label>
+    <#--<p><label><input type="radio" name="name" value="Murzik"/>Мурзик</label></p>
+    <p><label><input type="radio" name="name" value="Barsik"/>Барсик</label></p>
+    <p><label><input type="radio" name="name" value="Murka"/>Мурка</label></p>-->
+
+    <p><select name="name">
+            <option value="Murzik">Murzik</option>             <#-- выпадающий список-->
+            <option value="Barsik">Barsik</option>
+            <option value="Murka">Murka</option>
+        </select></p>
+
 
     <br/><br/>
     <input type="submit" value="Добавить кота">
